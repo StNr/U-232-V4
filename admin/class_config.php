@@ -31,6 +31,8 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
+if (!is_writable ('./cache/class_config.php'))  stderr('Fail', 'Cache File is not writable Click <a href=\'staffpanel.php?tool=class_config\'>here to get back</a>');
+
 require_once (CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
@@ -254,6 +256,9 @@ $res = sql_query("SELECT * from class_config WHERE name NOT IN ('UC_MIN','UC_MAX
             }
             $configfile.= get_cache_config_data($the_names, $the_colors, $the_images);
             $configfile.= "\n\n\n?" . ">";
+            
+            if (!is_writable ('./cache/class_config.php'))  stderr('Fail', 'Cache File is not writable Click <a href=\'staffpanel.php?tool=class_config\'>here to get back</a>');
+
             $filenum = fopen('./cache/class_config.php', 'w');
             ftruncate($filenum, 0);
             fwrite($filenum, $configfile);
