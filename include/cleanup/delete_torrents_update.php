@@ -45,6 +45,8 @@ function docleanup($data)
 				 LEFT JOIN rating ON rating.torrent = torrents.id
                                  LEFT JOIN thumbsup ON thumbsup.torrentid = torrents.id
 				 LEFT JOIN snatched ON snatched.torrentid = torrents.id
+				 LEFT JOIN requests ON filled_torrent_id = torrents.id
+				LEFT JOIN offers ON filled_torrent_id = torrents.id
 				 WHERE torrents.id = ".sqlesc($arr['id'])) or sqlerr(__FILE__, __LINE__);
         @unlink("{$INSTALLER09['torrent_dir']}/{$arr['id']}.torrent");
         write_log("Torrent ".(int)$arr['id']." (".htmlsafechars($arr['name']).") was deleted by system (older than $days days and no seeders)");
