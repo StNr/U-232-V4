@@ -178,7 +178,7 @@ $topic_res = sql_query('SELECT t.id as id, t.user_id as user_id, t.topic_name as
 			p.topic_id as post_topic_id
 				FROM topics AS t 
 				LEFT JOIN posts AS p ON t.id = p.topic_id 
-				WHERE  ' . ($CURUSER['class'] < UC_STAFF ? ' status = \'ok\' AND' : ($CURUSER['class'] < $min_delete_view_class ? ' status != \'deleted\'  AND' : '')) . '  forum_id=' . $forum_id . ' GROUP BY p.topic_id ORDER BY sticky, post_added DESC ' . $LIMIT);
+				WHERE  ' . ($CURUSER['class'] < UC_STAFF ? ' t.status = \'ok\' AND' : ($CURUSER['class'] < $min_delete_view_class ? ' t.status != \'deleted\'  AND' : '')) . '  forum_id=' . $forum_id . ' GROUP BY p.topic_id ORDER BY sticky, post_added DESC ' . $LIMIT);
 
 $location_bar = '<h1><a class="altlink" href="index.php">' . $INSTALLER09['site_name'] . '</a>  <img src="' . $INSTALLER09['pic_base_url'] . 'arrow_next.gif" alt="&#9658;" title="&#9658;" /> 
 			<a class="altlink" href="' . $INSTALLER09['baseurl'] . '/forums.php">'.$lang['fe_forums'].'</a> ' . $parent_forum_name . ' <img src="' . $INSTALLER09['pic_base_url'] . 'arrow_next.gif" alt="&#9658;" title="&#9658;" />
